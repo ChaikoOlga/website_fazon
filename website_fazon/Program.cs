@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using website_fazon.Components;
-
+using website_fazon.EF;
+using Microsoft.Extensions.Configuration;
 namespace website_fazon
 {
     public class Program
@@ -7,6 +9,7 @@ namespace website_fazon
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<FazonDB>(opt=>opt.UseSqlServer(builder.Configuration.GetConnectionString("FazonDb")));
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
